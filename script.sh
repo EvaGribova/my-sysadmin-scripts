@@ -23,11 +23,16 @@ if ! touch "$LOG_FILE" 2>/dev/null; then
     exit 1
 fi
 
+if ! command -v date >/dev/null 2>&1; then
+    echo "Ошибка: команда date не найдена." >&2
+    exit 1
+fi
+
 while true; do
     {
         echo "--- $(date '+%Y-%m-%d %H:%M:%S') ---"
-        free 
-        df 
+        free -h
+        df -h
         uptime
         echo
     } >> "$LOG_FILE"
